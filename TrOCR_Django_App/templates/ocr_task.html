@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Task</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .app-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .app-button:hover {
+            background-color: #0056b3;
+        }
+        .fancy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF; /* Button background color */
+            color: white; /* Button text color */
+            text-decoration: none; /* Remove underlines from the link */
+            border-radius: 4px; /* Rounded corners */
+            transition: background-color 0.3s ease; /* Smooth hover effect */
+            margin-right: 10px; /* Right margin between buttons */
+        }
+
+        .fancy-button:hover {
+            background-color: #0056b3; /* Button background color on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OCR Task</h1>
+        <div class="button-container">
+            <!-- Button 1: Route to URL in App1 -->
+            <a href="{% url 'deep_learning:configure' %}" class="fancy-button">Configure Model</a>
+            <a href="{% url 'deep_learning:train_model' %}" class="fancy-button">Train Model</a>
+            <a href="{% url 'deep_learning:show_statistics' %}" class="fancy-button">Show Data Statistics</a>
+            
+            
+        </div>
+    </div>
+</body>
+</html>

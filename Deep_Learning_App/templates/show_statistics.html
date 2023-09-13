@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images Statistics</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .image-sample {
+            width: 30%;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .count {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fancy Webpage</h1>
+    <div class="container">
+        <h2>Training, Testing, and Validation Images</h2>
+        <div class="image-container">
+            {% for image in training_images %}
+                <img class="image-sample" src="{{ image }}" alt="Training Image">
+            {% endfor %}
+            {% for image in testing_images %}
+                <img class="image-sample" src="{{ image }}" alt="Testing Image">
+            {% endfor %}
+            {% for image in validation_images %}
+                <img class="image-sample" src="{{ image }}" alt="Validation Image">
+            {% endfor %}
+        </div>
+        <div class="count">
+            <p>Training Images: {{ training_count }}</p>
+            <p>Testing Images: {{ testing_count }}</p>
+            <p>Validation Images: {{ validation_count }}</p>
+        </div>
+
+        <div class="back-link">
+            <a href="{% url 'ocr_detector:ocr_task_view' %}">Back to Main Menu</a>
+        </div>
+    </div>
+</body>
+</html>

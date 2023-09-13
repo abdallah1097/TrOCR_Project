@@ -20,6 +20,6 @@ from . import views
 
 urlpatterns = [
     path('', views.ocr_task_view, name='ocr_task_view'),
-    path('Deep_Learning_APP/', include('Deep_Learning_APP.urls')),
+    path('Deep_Learning_App/', include('Deep_Learning_App.urls')),
     path('admin/', admin.site.urls),
 ]

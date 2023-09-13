@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 import os, sys
 # caution: path[0] is reserved for script path (or '' in REPL)
-sys.path.insert(1, os.path.join(os.getcwd(), 'deep_learning' ))
+sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 
 
 from src.config import config  # Import the configuration from the 'utils' module

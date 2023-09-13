@@ -2,7 +2,7 @@ from torch import nn
 
 import os, sys
 # caution: path[0] is reserved for script path (or '' in REPL)
-sys.path.insert(1, os.path.join(os.getcwd(), 'deep_learning' ))
+sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 
 from src.encoder import Encoder
 from src.decoder import Decoder

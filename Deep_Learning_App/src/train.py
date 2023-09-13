@@ -2,7 +2,7 @@ import tensorflow as tf
 
 import os, sys
 # caution: path[0] is reserved for script path (or '' in REPL)
-sys.path.insert(1, os.path.join(os.getcwd(), 'deep_learning' ))
+sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 import numpy as np
 from src.TrOCR_model import TrOCR
 from data_handler.data_splitter import DataSplitter

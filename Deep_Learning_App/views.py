@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import subprocess, os, sys
-from deep_learning.forms import ConfigForm
-from deep_learning.src.config import config
-from deep_learning.data_handler.data_splitter import DataSplitter
-from deep_learning.data_handler.data_splitter import DataSplitter
-from deep_learning.data_handler.data_splitter import DataSplitter
+from Deep_Learning_App.forms import ConfigForm
+from Deep_Learning_App.src.config import config
+from Deep_Learning_App.data_handler.data_splitter import DataSplitter
+from Deep_Learning_App.data_handler.data_splitter import DataSplitter
+from Deep_Learning_App.data_handler.data_splitter import DataSplitter
 import random
 
 # Create your views here.

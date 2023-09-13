@@ -47,6 +47,28 @@
             text-align: center;
             margin-top: 20px;
         }
+        /* Style for the "Back to Main Menu" button */
+        .button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px; /* Adjust padding to your liking */
+            background-color: #007bff; /* Change to your desired button color */
+            color: #fff; /* Text color */
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-link:hover {
+            background-color: #0056b3; /* Change to the hover color you prefer */
+        }
+
     </style>
 </head>
 <body>
@@ -59,7 +81,9 @@
         </div>
         <!-- "Back to main menu" link -->
         <div class="back-link">
-            <a href="{% url 'ocr_task_view' %}">Back to Main Menu</a>
+            <span class="button">
+                <a href="{% url 'ocr_task_view' %}" class="button-link">Back to Main Menu</a>
+            </span>
         </div>
     </div>
 </body>

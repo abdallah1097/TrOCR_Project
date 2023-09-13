@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Run TensorBoard</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Run TensorBoard</h1>
-    <p>Click the link below to open TensorBoard at <a href="http://localhost:6006/" target="_blank">localhost:6006</a>:</p>
-    <a href="/run_tensorboard/" target="_blank">Start TensorBoard</a>
+    <div class="container">
+        <h1>Training is starting, Run TensorBoard?</h1>
+        <p>Click the link below to open TensorBoard at <a href="http://localhost:6006/" target="_blank">localhost:6006</a>:</p>
+        
+    </div>
 </body>
 </html>

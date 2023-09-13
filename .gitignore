@@ -1,0 +1,4 @@
+*.jpg
+*.txt
+*.h5
+/ocr_detector_venv

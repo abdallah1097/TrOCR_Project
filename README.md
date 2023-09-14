@@ -6,9 +6,7 @@ Submitted to blnk Egypt
 
 TrOCR is a Transformer-based OCR, This repo implements the TrOCR From scratch using Tensorflow, and Django. This README.md contains:
 
-- Setting up environment settings
-- See HTML in the right
-- ✨Magic ✨
+![TrOCR](https://github.com/abdallah1097/TrOCR_Project/assets/32100743/ca04e7b6-b529-49bd-aaa3-43056b5c2f0d)
 
 
 ## Getting Started ...

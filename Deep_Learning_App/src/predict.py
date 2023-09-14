@@ -92,7 +92,6 @@ def main(image_path):
 
 
         print("Predicted Text:", text)
-        # sys.stdout.write("Pleaseeeeee" + "\n")
 
     return text
 

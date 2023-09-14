@@ -5,7 +5,7 @@ import os, sys
 sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 
 from data_handler.data_preprocessing import DataPreprocessor
-from transformers import GPT2Tokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
+from transformers import AutoTokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
 from src.config import config
 import tensorflow as tf
 import random
@@ -17,8 +17,7 @@ class CustomDataset(tf.keras.utils.Sequence):
         # self.image_paths = [os.path.join(data_dir, img_name) for img_name in os.listdir(data_dir)]
         # self.image_paths = [ data_path + ".jpg" for data_path in data_paths] 
 
-        self.tokenizer = GPT2Tokenizer.from_pretrained("akhooli/gpt2-small-arabic")
-        self.start_token = "<START>"
+        self.tokenizer = AutoTokenizer.from_pretrained("asafaya/bert-base-arabic")
         self.batch_size = config.batch_size
         # self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
     
@@ -53,14 +52,17 @@ class CustomDataset(tf.keras.utils.Sequence):
             label_path = batch_indices[i] + ".txt"
             with open(label_path, "r", encoding='utf-8') as label_file:
                 label = label_file.read().strip()
-                label = self.start_token + " " + label
-                tokenizer_output = self.tokenizer.encode(label,
-                                                        padding="max_length",
-                                                        return_tensors="tf",
-                                                        max_length=config.max_length,
-                                                        add_special_tokens=True
-                                                                )
-                tokenizer_output = tokenizer_output[0]
+                # label = self.start_token + " " + label
+                # tokenizer_output = self.tokenizer.encode(label,
+                #                                         padding="max_length",
+                #                                         return_tensors="tf",
+                #                                         max_length=config.max_length,
+                #                                         add_special_tokens=True
+                #                                                 )
+                # tokenizer_output = tokenizer_output[0]
+                tokenizer_output = self.tokenizer(label, padding='max_length',
+                                                   max_length=config.max_length, 
+                                                   add_special_tokens=True)["input_ids"]
             
             # tokenizer_output = [1, tokenizer_output[:-1]]
             # tokenizer_output.insert(0, 1)

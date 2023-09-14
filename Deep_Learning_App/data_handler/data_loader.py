@@ -19,19 +19,20 @@ class CustomDataset(tf.keras.utils.Sequence):
 
         self.tokenizer = GPT2Tokenizer.from_pretrained("akhooli/gpt2-small-arabic")
         self.start_token = "<START>"
+        self.batch_size = config.batch_size
         # self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
     
     def __len__(self):
         # return len(self.data_paths)
-        return int(np.floor(len(self.data_paths) / config.batch_size))
+        return int(np.floor(len(self.data_paths) / self.batch_size))
     
     def on_epoch_end(self):
         self.data_paths = random.sample(self.data_paths, len(self.data_paths))
         
     def __getitem__(self, indx):
         
-        start_idx = indx * config.batch_size
-        end_idx = (indx + 1) * config.batch_size
+        start_idx = indx * self.batch_size
+        end_idx = (indx + 1) * self.batch_size
         batch_indices = self.data_paths[start_idx:end_idx]
         
         [image_batch, labels_batch], labels_batch = self.__data_generation(batch_indices)
@@ -40,8 +41,8 @@ class CustomDataset(tf.keras.utils.Sequence):
         return [image_batch, labels_batch], labels_batch
 
     def __data_generation(self, batch_indices):
-        image_batch = np.zeros((config.batch_size, config.image_height, config.image_width, config.number_channels), dtype='float32') #, dtype=
-        labels_batch = np.zeros((config.batch_size, config.max_length), dtype='float32')
+        image_batch = np.zeros((self.batch_size, config.image_height, config.image_width, config.number_channels), dtype='float32') #, dtype=
+        labels_batch = np.zeros((self.batch_size, config.max_length), dtype='float32')
         
 
         for i in range(len(batch_indices)):
@@ -112,7 +113,7 @@ class CustomDataset(tf.keras.utils.Sequence):
 
     #     )
     #     # dataset = dataset.shuffle(buffer_size=len(self.data_paths))
-    #     # dat aset = dataset.batch(config.batch_size)
+    #     # dat aset = dataset.batch(self.batch_size)
     #     # dataset = dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
     #     return dataset

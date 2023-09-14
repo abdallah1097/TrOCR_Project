@@ -8,5 +8,7 @@ urlpatterns = [
     path('configure/', views.configure, name='configure'),
     path('train_model/', views.train_model, name='train_model'),
     path('see_logs/', views.see_logs, name='see_logs'),
+    path('make_prediction/', views.make_prediction, name='make_prediction'),
+    path('upload_image/', views.upload_image, name='upload_image'),
     
 ]

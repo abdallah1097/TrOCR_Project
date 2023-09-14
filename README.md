@@ -53,6 +53,8 @@ Allows you to change parameters set in the config.py file:
 ![configuration_1](https://github.com/abdallah1097/TrOCR_Project/assets/32100743/e7f6fe0a-a69e-4e96-823e-99cdde4f71de)
 
 Once you change the configuration:
+
+
 ![config_succ](https://github.com/abdallah1097/TrOCR_Project/assets/32100743/af318af7-1a3f-4145-b51a-32f43aa9f97c)
 
 ## See Training Logs

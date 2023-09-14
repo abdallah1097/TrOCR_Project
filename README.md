@@ -1,5 +1,7 @@
 # TrOCR Detector
 Submitted to blnk Egypt
+
+
 [![N|Solid](https://media.licdn.com/dms/image/C4D0BAQFXhOLCPeWiXA/company-logo_200_200/0/1661947990889?e=1702512000&v=beta&t=mJ7HCHzYJ718TDWtHYwM4AYuPxGxVbD40k81dZpW-QQ)](blnk)
 
 TrOCR is a Transformer-based OCR, This repo implements the TrOCR From scratch using Tensorflow, and Django. This README.md contains:
@@ -7,6 +9,7 @@ TrOCR is a Transformer-based OCR, This repo implements the TrOCR From scratch us
 - Setting up environment settings
 - See HTML in the right
 - ✨Magic ✨
+
 
 ## Getting Started ...
 Setting Up Environment: Create and Activate a Virtual Environment
@@ -24,8 +27,9 @@ Starting Django Server: Starting development server at http://127.0.0.1:8000/
 python manage.py runserver
 ```
 
-## Plugins
-
+## Django App
+Main interface app will be like this:
+![Capture](https://github.com/abdallah1097/TrOCR_Project/assets/32100743/58e67944-7263-4d48-a07d-b80a914495b8)
 Dillinger is currently extended with the following plugins.
 Instructions on how to use them in your own application are linked below.
 

@@ -1,5 +1,3 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +46,9 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        .button-link:hover {
+            background-color: #0056b3; /* Change to the hover color you prefer */
+        }
     </style>
 </head>
 <body>
@@ -55,10 +56,18 @@
     <div class="image-container">
         {% for item in context %}
             <div class="image-card">
-                <img src="{{ item.path }}" alt="{{ item.path }}">
-                <p>{{ item.label }}</p>
+                <img src="{{ item.original_path }}" alt="Original Image">
+                <img src="{{ item.processed_path }}" alt="Preprocessed Image">
+                <p>{{ item.label }}</p>                
+
             </div>
         {% endfor %}
+    
+        <div class="back-link">
+            <span class="button">
+                <a href="{% url 'ocr_task_view' %}" class="button-link">Back to Main Menu</a>
+            </span>
+        </div>
     </div>
 </body>
 </html>

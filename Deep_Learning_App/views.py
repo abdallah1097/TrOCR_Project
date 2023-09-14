@@ -34,20 +34,14 @@ def show_statistics(request):
 
 
 # Create your views here.
-def start_tensorboard(request):
-    if request.method == 'POST':
-        port = request.POST.get('port')
-        logdir = request.POST.get('logdir')
-        try:
-            # Start TensorBoard as a subprocess
-            subprocess.Popen(['tensorboard', '--logdir', logdir, '--port', port])
-            return HttpResponse(f"TensorBoard started on port {port} with log directory: {logdir}")
-        except Exception as e:
-            # return HttpResponse(f"TensorBoard started on port {port} with log directory: {logdir}")
-            # del port, logdir
-            return HttpResponse(f"Error starting TensorBoard: {str(e)}")
-    else:
-        return render(request, 'start_tensorboard.html')
+def see_logs(request):
+    # Start TensorBoard as a subprocess
+    process = subprocess.Popen(['tensorboard', '--logdir', config.log_dir])
+    # process.wait()
+
+    return render(request, 'see_logs.html', {'config': {'log_dir': config.log_dir}})
+
+        
 
 def configure(request):
     if request.method == 'POST':

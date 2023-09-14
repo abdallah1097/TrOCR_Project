@@ -3,9 +3,9 @@ import os
 class Config:
     def __init__(self):
         # Data-related settings
-        self.data_path = os.path.join(os.getcwd(), 'media/dataset') # "D:/OCR Task/dataset/"
-        self.log_dir = os.path.join(os.getcwd(), 'deep_learning\logs')
-        self.deep_learning_model_path = os.path.join(os.getcwd(), 'deep_learning/models/saved_models')
+        self.data_path = os.path.join(os.getcwd(), 'media ', 'dataset') # "D:/OCR Task/dataset/"
+        self.log_dir = os.path.join(os.getcwd(), 'Deep_Learning_App', 'logs')
+        self.deep_learning_model_path = os.path.join(os.getcwd(), 'Deep_Learning_App', 'models' , 'saved_models')
         self.train_test_validation_ratios = [0.7, 0.15, 0.15]
         self.split_random_seed = 52 # 42 # To fairly compare trials
         self.batch_size = 64

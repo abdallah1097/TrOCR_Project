@@ -51,7 +51,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'TrOCR_Django_App.urls'
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_PATH = "media"
 templates_dir = os.path.join(os.getcwd(), "TrOCR_Django_App","templates")
 TEMPLATES = [
     {

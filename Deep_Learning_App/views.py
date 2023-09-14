@@ -9,28 +9,28 @@ from Deep_Learning_App.data_handler.data_splitter import DataSplitter
 import random
 
 # Create your views here.
-def show_statistics(request):
-        data_splitter = DataSplitter(config.data_path, config.train_test_validation_ratios[1], config.train_test_validation_ratios[2])
+def show_preprocessed_batch(request):
+        data_splitter = DataSplitter(config.data_path, 0.1, config.train_test_validation_ratios[2]) # For testing purpose, we only sample a small set
 
         train_paths = data_splitter.get_train_paths()
-        val_paths = data_splitter.get_val_paths()
-        test_paths = data_splitter.get_test_paths()
+        randomly_sampled_paths = random.sample(train_paths, 5)
+        training_images_paths = [path+".jpg" for path in randomly_sampled_paths]
+        training_labels_paths = [path+".txt" for path in randomly_sampled_paths] # .replace('\\\\', '\\')
+        
+        # Since web browsers doesn't allow browsers to access local files, absolute paths won't show up
+        # Relative paths works
+        
+        context = []
 
-        training_images = [path+".jpg" for path in random.sample(train_paths, 5)]
-        testing_images = [path+".jpg" for path in random.sample(val_paths, 5)]
-        validation_images = [path+".jpg" for path in random.sample(test_paths, 5)]
+        for i in range(len(training_images_paths)):
+            index = training_images_paths[i].find('media')  # Find the index of the subword in the input string
+            training_images_paths[i] = training_images_paths[i][index -1 :]  # Delete everything before the subword
 
-        # Create a context dictionary to pass data to the template
-        context = {
-            'training_count': len(train_paths),
-            'testing_count': len(val_paths),
-            'validation_count': len(test_paths),
-            'training_images': training_images,
-            'testing_images': testing_images,
-            'validation_images': validation_images,
-        }
+            index = training_labels_paths[i].find('media')  # Find the index of the subword in the input string
+            training_labels_paths[i] = training_labels_paths[i][index -1 :]  # Delete everything before the subword
+            context.append({'path': training_images_paths[i], 'label': training_labels_paths[i]})
 
-        return render(request, 'show_statistics.html', context)
+        return render(request, 'show_image_preprocessing.html', {'context': context})
 
 
 # Create your views here.

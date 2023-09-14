@@ -105,6 +105,4 @@ if __name__ == '__main__':
 
     # Parse the command-line arguments
     args = parser.parse_args()
-    # print("Image Path:", args.image_path)
-    # sys.stdout.write("Pleaseeeeee" + "\n")
     main(args.image_path)

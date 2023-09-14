@@ -4,7 +4,7 @@ import argparse
 # caution: path[0] is reserved for script path (or '' in REPL)
 sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 
-from transformers import GPT2Tokenizer, AutoTokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
+from transformers import AutoTokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
 from src.TrOCR_model import TrOCR
 from data_handler.data_splitter import DataSplitter
 from data_handler.data_loader import CustomDataset

@@ -119,7 +119,7 @@ def configure(request):
 
 def train_model(request):
     venv_python = sys.executable
-    subprocess_cmd = [venv_python, 'deep_learning/src/train.py']
+    subprocess_cmd = [venv_python, 'Deep_Learning_App/src/train.py']
     working_directory = os.getcwd()
 
     # change_dir_cmd = ['cd', working_directory]
@@ -135,3 +135,58 @@ def train_model(request):
     # stdout, stderr = process.communicate()
     # return render(request, 'training.html', {'stdout': stdout, 'stderr': stderr})
     return render(request, 'training.html')
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES['image']:
+        uploaded_image = request.FILES['image']
+        uploaded_image = os.path.join(os.getcwd(), 'media', 'dataset', str(uploaded_image))
+        return render(request, 'upload_successful.html', {'filename': uploaded_image})
+    return render(request, 'upload_image.html')
+
+def make_prediction(request):
+    image_path = request.GET.get('image_path', '')
+    # return HttpResponse(f'Image path received: {image_path}')
+    venv_python = sys.executable
+    script_path = os.path.join(os.getcwd(), 'Deep_Learning_App', 'src', 'predict.py')
+    subprocess_cmd = [venv_python, script_path]
+    additional_args = ['--image_path', image_path]
+    subprocess_cmd.extend(additional_args)
+    working_directory = os.getcwd()
+
+    print(subprocess_cmd)
+    process = subprocess.Popen(subprocess_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, cwd=working_directory, shell=True, text=True)
+    return_code = process.wait()
+    (stdoutdata, stderrdata) = process.communicate()
+    # exit_code = process.returncode
+
+
+    # output, _ = process.communicate()
+
+    # output = process.stdout.read()
+    # print(f"Return code: {return_code}")
+    print(f"Output: {stdoutdata}")
+
+    # print(process)
+    # output, _ = process.communicate()
+
+    # # Get the stdout and stderr from the result
+    # stdout_output = output.stdout
+    # stderr_output = output.stderr
+
+    # context = {
+    #     'stdout_output': stdout_output,
+    #     'stderr_output': stderr_output,
+    # }
+    
+    
+    # # # Start TensorBoard as a subprocess
+    # # command = f'tensorboard --logdir={config.log_dir}'
+    # # process = subprocess.Popen(command, shell=True)
+
+
+    # # # stdout, stderr = process.communicate()
+    # # # return render(request, 'training.html', {'stdout': stdout, 'stderr': stderr})
+    # # return render(request, 'training.html')
+
+    # # You can use the context in your template or return an HttpResponse
+    # return HttpResponse(f'Stdout Output: {stdout_output}<br>Stderr Output: {stderr_output}')

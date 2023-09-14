@@ -155,6 +155,9 @@ def make_prediction(request):
 
     print(subprocess_cmd)
     process = subprocess.Popen(subprocess_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, cwd=working_directory, shell=True, text=True)
+    from subprocess import check_output
+    out = check_output(subprocess_cmd)
+
     return_code = process.wait()
     (stdoutdata, stderrdata) = process.communicate()
     # exit_code = process.returncode
@@ -164,7 +167,7 @@ def make_prediction(request):
 
     # output = process.stdout.read()
     # print(f"Return code: {return_code}")
-    print(f"Output: {stdoutdata}")
+    print(f"Output: {stdoutdata}, {out}")
 
     # print(process)
     # output, _ = process.communicate()
@@ -189,4 +192,4 @@ def make_prediction(request):
     # # return render(request, 'training.html')
 
     # # You can use the context in your template or return an HttpResponse
-    # return HttpResponse(f'Stdout Output: {stdout_output}<br>Stderr Output: {stderr_output}')
+    return HttpResponse(f'Stdout Output: {stdoutdata}<br>')

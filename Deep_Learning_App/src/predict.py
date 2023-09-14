@@ -32,8 +32,9 @@ def main(image_path):
 
     # tokenizer = GPT2Tokenizer.from_pretrained("akhooli/gpt2-small-arabic")
     tokenizer = AutoTokenizer.from_pretrained("asafaya/bert-base-arabic")
+    
 
-    decoder_inputs = tokenizer('', padding='max_length', max_length=config.max_length, add_special_tokens=True)["input_ids"]
+    decoder_inputs = tokenizer('', padding='max_length', max_length=tokenizer.vocab_size, add_special_tokens=True)["input_ids"]
     sos_ID = tokenizer.bos_token_id
     eos_ID = tokenizer.eos_token_id
     
@@ -45,17 +46,10 @@ def main(image_path):
     encoder_input_image = preprocessed_image[tf.newaxis, :, :, :]
     decoder_input_text = tf.convert_to_tensor([decoder_inputs])  # Add a new axis with [ ]
 
-    print("Encoder/ Decoder Inputs", encoder_input_image.shape, decoder_input_text.shape)
-    print("SOS ID:", sos_ID, "EOS ID:", eos_ID)
-
-    # `tf.TensorArray` is required here (instead of a Python list), so that the
-    # dynamic-loop can be traced by `tf.function`.
-    # output_array = tf.TensorArray(dtype=tf.int32, size=0, dynamic_size=True)
-    # output_array = output_array.write(0, sos_ID)
+    # print("Encoder/ Decoder Inputs", encoder_input_image.shape, decoder_input_text.shape)
+    # print("SOS ID:", sos_ID, "EOS ID:", eos_ID)
 
     for i in tf.range(config.max_length):
-        # output = output_array.stack() # tf.transpose(output_array.stack())
-        # print("Encoder Input Shapes:", np.array(encoder_input_image).shape, np.array(decoder_input_text).shape)
         predictions = TrOCR_model([encoder_input_image, decoder_input_text], training=False)
 
         # Select the last token from the `seq_len` dimension.
@@ -65,22 +59,17 @@ def main(image_path):
         predicted_id = tf.argmax(predictions, axis=-1)
         predicted_id = tf.cast(predicted_id, dtype=tf.int32)
 
-        # print("\npredicted_id:", predicted_id[0].shape, predicted_id[0])
-        # print("Predicted is:", tokenizer.decode(predicted_id[0], skip_special_tokens=True))
-
-        # Concatenate the `predicted_id` to the output which is given to the
-        # decoder as its input.
-        #   output_array = output_array.write(i+1, tf.transpose(predicted_id[0]))
-
-        # decoder_input_text = decoder_input_text.index(0)
         predicted_ID_list = predicted_id[0].numpy().flatten().tolist()
 
         # decoder_input_text[0] = [predicted_ID_list.pop(0) if x == 0 else x for x in decoder_input_text[0]]
         for added_id in predicted_ID_list:
             numpy_decoder_input_text= decoder_input_text[0].numpy()
-            zero_index = np.where(numpy_decoder_input_text == 0)[0][0] # Get index of the first zero only
-            numpy_decoder_input_text[zero_index] = added_id
-            decoder_input_text = tf.convert_to_tensor([numpy_decoder_input_text])  # Add a new axis with [ ]
+            zero_index = np.where(numpy_decoder_input_text == 0)[0] # Get index of the first zero only
+            if zero_index.size > 0:
+                zero_index = zero_index[0]
+                # print("Index of the first zero element:", first_zero_index)
+                numpy_decoder_input_text[zero_index] = added_id
+                decoder_input_text = tf.convert_to_tensor([numpy_decoder_input_text])  # Add a new axis with [ ]            
 
 
         if predicted_id == eos_ID:
@@ -90,8 +79,9 @@ def main(image_path):
         # The output shape is `(1, tokens)`.
         text = tokenizer.decode(decoder_input_text[0], skip_special_tokens=True)  # Shape: `()`.
 
-
-        print("Predicted Text:", text)
+    
+    # print(text)
+    sys.stdout.write(text)
 
     return text
 

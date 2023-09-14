@@ -1,6 +1,5 @@
 import numpy as np
 import tensorflow as tf
-from sklearn.metrics import precision_score, recall_score
 
 class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
   def __init__(self, d_model, warmup_steps=4000):
@@ -43,15 +42,3 @@ def masked_accuracy(label, pred):
     match = tf.cast(match, dtype=tf.float32)
     mask = tf.cast(mask, dtype=tf.float32)
     return tf.reduce_sum(match)/tf.reduce_sum(mask)
-
-class PrecisionRecallCallback(tf.keras.callbacks.Callback):
-    def on_epoch_end(self, epoch, logs=None):
-        # Assuming you have validation data
-        val_predictions = self.model.predict(self.validation_data[0])
-        val_labels = self.validation_data[1]
-
-        precision = precision_score(val_labels, (val_predictions > 0.5).astype(int))
-        recall = recall_score(val_labels, (val_predictions > 0.5).astype(int))
-
-        logs["val_precision"] = precision
-        logs["val_recall"] = recall

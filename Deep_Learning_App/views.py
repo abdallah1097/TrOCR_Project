@@ -8,12 +8,12 @@ from Deep_Learning_App.data_handler.data_loader import CustomDataset
 import tensorflow as tf
 import random
 from PIL import Image
-from transformers import GPT2Tokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
+from transformers import AutoTokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
 
 
 # Create your views here.
 def show_preprocessed_batch(request):
-        tokenizer = GPT2Tokenizer.from_pretrained("akhooli/gpt2-small-arabic")
+        tokenizer = AutoTokenizer.from_pretrained("asafaya/bert-base-arabic")
 
         data_splitter = DataSplitter(config.data_path, 0.3, config.train_test_validation_ratios[2]) # For testing purpose, we only sample a small set
 
@@ -41,10 +41,11 @@ def show_preprocessed_batch(request):
 
         # Get a batch of preprocessed image
         for inputs, outputs in dataset_generator:
+            outputs = tf.cast(outputs, tf.uint8)
             for i in range(inputs[0].shape[0]):
                 tensor_image = tf.cast(inputs[0][i]*255, tf.uint8)
+                
                 output_text = tokenizer.decode(outputs[i], skip_special_tokens=True)  # Shape: `()`.
-                # print("\n\nTracing:", output_text)
 
                 # Convert the TensorFlow tensor to a NumPy array
                 numpy_array = tensor_image.numpy()

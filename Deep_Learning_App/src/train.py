@@ -10,7 +10,7 @@ sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 from src.TrOCR_model import TrOCR
 from data_handler.data_splitter import DataSplitter
 from data_handler.data_loader import CustomDataset
-from src.utils.training_helpers import CustomSchedule, PrecisionRecallCallback, masked_loss, masked_accuracy
+from src.utils.training_helpers import CustomSchedule, masked_loss, masked_accuracy
 from src.config import config
 from PIL import Image
 
@@ -61,8 +61,6 @@ def main():
         verbose=1
     )
 
-    precision_recall_callback = PrecisionRecallCallback()
-
 
     # Start training
     print("\n\n\n\n\nThis is the start of training... Steps:", len(training_dataset_generator))
@@ -74,7 +72,7 @@ def main():
         validation_steps=len(validation_dataset_generator),
         verbose=1,
         shuffle=False,
-        callbacks=[tensorboard_callback, checkpoint_callback, precision_recall_callback]
+        callbacks=[tensorboard_callback, checkpoint_callback]
     )
 
 if __name__ == '__main__':

@@ -1,4 +1,3 @@
-/media/dataset/
 *.h5
 __pycache__/
 /ocr_detector_venv

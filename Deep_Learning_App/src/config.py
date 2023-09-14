@@ -19,7 +19,7 @@ class Config:
         self.dff = 512
         self.num_heads = 8
         self.num_layers = 2
-        self.max_length = 75
+        self.max_length = 150
         self.vocab_size = 55000
 
 # Create a single instance of the Config class

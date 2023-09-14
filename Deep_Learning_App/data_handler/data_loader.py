@@ -18,6 +18,7 @@ class CustomDataset(tf.keras.utils.Sequence):
         # self.image_paths = [ data_path + ".jpg" for data_path in data_paths] 
 
         self.tokenizer = AutoTokenizer.from_pretrained("asafaya/bert-base-arabic")
+        self.vocab_size = self.tokenizer.vocab_size
         self.batch_size = config.batch_size
         # self.tokenizer.add_special_tokens({'pad_token': '[PAD]'})
     

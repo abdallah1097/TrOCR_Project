@@ -5,6 +5,7 @@ from src.config import config
 from src.utils.base_attention import BaseAttention
 from src.utils.feed_forward import FeedForward
 from src.utils.positional_embeddings import PositionalEmbedding
+from transformers import AutoTokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
 
 # Add the 'Deep_Learning_App' directory to the Python path
 sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App'))
@@ -113,8 +114,11 @@ class Decoder(tf.keras.layers.Layer):
         self.total_number_of_patches = (config.image_height // config.patch_height) * (
             config.image_width // config.patch_width)
 
+        self.tokenizer = AutoTokenizer.from_pretrained("asafaya/bert-base-arabic")
+        self.vocab_size = self.tokenizer.vocab_size
+
         self.pos_embedding = PositionalEmbedding(
-            vocab_size=config.vocab_size,
+            vocab_size=self.vocab_size,
             length=config.max_length,
             d_model=config.d_model)
         self.dropout = tf.keras.layers.Dropout(dropout_rate)

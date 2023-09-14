@@ -4,6 +4,7 @@ import tensorflow as tf
 from src.encoder import Encoder
 from src.decoder import Decoder
 from src.config import config
+from transformers import AutoTokenizer  # Import the GPT2Tokenizer from the Hugging Face Transformers library
 
 # Add the 'Deep_Learning_App' directory to the Python path
 sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App'))
@@ -22,9 +23,12 @@ class TrOCR(tf.keras.Model):
     """
     def __init__(self, *, dropout_rate=0.1):
         super().__init__()
+        self.tokenizer = AutoTokenizer.from_pretrained("asafaya/bert-base-arabic")
+        self.vocab_size = self.tokenizer.vocab_size
+
         self.encoder = Encoder()
         self.decoder = Decoder()
-        self.final_layer = tf.keras.layers.Dense(config.vocab_size)
+        self.final_layer = tf.keras.layers.Dense(self.vocab_size)
 
     def call(self, inputs, training):
         """

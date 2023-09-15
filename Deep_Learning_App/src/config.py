@@ -22,5 +22,7 @@ class Config:
         self.max_length = 150
         self.vocab_size = 55000
 
+        self.epochs = 10
+
 # Create a single instance of the Config class
 config = Config()

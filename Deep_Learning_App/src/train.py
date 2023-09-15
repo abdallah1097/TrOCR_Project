@@ -1,10 +1,8 @@
 import tensorflow as tf
 import os
 import sys
-import numpy as np
 
 import os, sys
-# caution: path[0] is reserved for script path (or '' in REPL)
 sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
 
 from src.TrOCR_model import TrOCR
@@ -63,10 +61,9 @@ def main():
 
 
     # Start training
-    print("\n\n\n\n\nThis is the start of training... Steps:", len(training_dataset_generator))
     TrOCR_model.fit(
         training_dataset_generator,
-        epochs=10,
+        epochs=config.epochs,
         steps_per_epoch=len(training_dataset_generator),
         validation_data=validation_dataset_generator,
         validation_steps=len(validation_dataset_generator),

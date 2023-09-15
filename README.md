@@ -74,7 +74,16 @@ cd TrOCR_Project
 nano Deep_Learning_App/src/config.py
 python Deep_Learning_App/src/predict.py --image_path absolute/path/to/image.jpg
 ```
-
+To convert the TensorFlow model to onnx model:
+```
+cd TrOCR_Project
+python Deep_Learning_App/src/to_onnx.py --model_path absolute/path/to/model.h5 --output_path absolute/path/to/output/directory
+```
+If you don't specify a model/ output path, the script will use the model path given in ```Deep_Learning_App/src/config.py``` you just run:
+```
+cd TrOCR_Project
+python Deep_Learning_App/src/to_onnx.py
+```
 4. Loss/ Accuracy Masked Functions: Since Transformers require padding sequence length to have a unified length, predictions from paddings should not be accounted for loss/ accuracy calculations as they're being masked. Therefore, masked loss/ accuracy functions were created.
 5. Learning Rate Scheduler: A custom learning rate scheduler according to the formula in the original Transformer was implemented:
 

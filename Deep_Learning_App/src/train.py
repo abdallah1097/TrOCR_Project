@@ -2,8 +2,9 @@ import tensorflow as tf
 import os
 import sys
 
-import os, sys
-sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App' ))
+# Insert the Deep_Learning_App directory into the system path
+# This allows importing modules from the specified directory
+sys.path.insert(1, os.path.join(os.getcwd(), 'Deep_Learning_App'))
 
 from src.TrOCR_model import TrOCR
 from data_handler.data_splitter import DataSplitter
@@ -16,7 +17,7 @@ def main():
     # Initialize the TrOCR model
     TrOCR_model = TrOCR()
 
-    # Initialize the DataSplitter
+    # Initialize the DataSplitter to split data into train, validation, and test sets
     data_splitter = DataSplitter(config.data_path, config.train_test_validation_ratios[1], config.train_test_validation_ratios[2])
 
     # Get data paths for training, validation, and testing
@@ -36,7 +37,7 @@ def main():
 
     # Define the learning rate schedule
     learning_rate = CustomSchedule(config.d_model)
-    
+
     # Initialize the Adam optimizer with custom learning rate
     optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9, beta_2=0.98, epsilon=1e-9)
 
@@ -45,10 +46,10 @@ def main():
         loss=masked_loss,
         optimizer=optimizer,
         metrics=[masked_accuracy])
-    
+
     # Define a TensorBoard callback for logging
     tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=config.log_dir, histogram_freq=1)
-    
+
     # Define a callback to save the best weights based on validation loss
     checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
         filepath=os.path.join(config.deep_learning_model_path, 'best_model_weights.h5'),
@@ -58,7 +59,6 @@ def main():
         mode='min',
         verbose=1
     )
-
 
     # Start training
     TrOCR_model.fit(
